@@ -1,0 +1,106 @@
+<!doctype html>
+
+<html lang="en">
+
+<!-- This document was build on top of https://getbootstrap.com/docs/5.0/examples/starter-template/ -->
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Devon Daley, Carleton University Undergraduate">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>Carleton Autonomous Mail Robot</title>
+   
+    <!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="reset.css" rel="stylesheet">
+	
+  </head>
+  <body>
+    
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Requests</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item active">
+          <a class="nav-link" aria-current="page" href="#">Testing Interface</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Nonfunctional Interface</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+
+  <div class="starter-template text-center py-5 px-3">
+    <h1>Make a request of the Carleton Autonomous Mail Robot</h1>
+	&nbsp
+    <p class="lead">Our service delivers packages between locations. Choose the Source and Destination beacons below.</p>
+	&nbsp
+	
+	<form>
+	<div class="row mb-3">
+      <div class="col-6 themed-grid-col"> 
+		<div class="mb-3">
+			<label for="source" class="form-label">Source: </label>
+			<select id="source" class="form-select">
+				<option>A</option>
+				<option>B</option>
+				<option>C</option>
+				<option>D</option>
+			</select>
+		</div>
+	  </div>
+	  
+      <div class="col-6 themed-grid-col"> 
+		<div class="mb-3">
+			<label for="destination" class="form-label">Destination: </label>
+			<select id="destination" class="form-select">
+				<option>A</option>
+				<option>B</option>
+				<option>C</option>
+				<option>D</option>
+			</select>
+		</div>
+	  </div>
+    </div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+	
+  </div>
+
+</main>
+
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+      
+  </body>
+</html>
