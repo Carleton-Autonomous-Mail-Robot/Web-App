@@ -74,9 +74,9 @@
 
   <div class="starter-template text-center py-5 px-3">
     <h1>Make a request of the Carleton Autonomous Mail Robot</h1>
-	&nbsp
+	<br>
     <p class="lead">Our service delivers packages between locations. Choose the Source and Destination beacons below.</p>
-	&nbsp
+	<br>
 	
 	<form>
 	<div class="row mb-3">
@@ -105,6 +105,24 @@
 	  </div>
     </div>
 	<button type="button" id="requestButton" class="btn btn-primary">Submit</button>
+	<br><br><br><br>
+	<div class="row mb-3">
+		<div class="col-6 themed-grid-col">
+			<label for="robotid" class="form-label">Robot ClientID: </label>
+		</div>
+		<div class="col-6 themed-grid-col">
+			<input type="text" readonly class="form-control-plaintext" id="robotid" value=""></input>
+		</div>
+	</div>
+	
+	<div class="row mb-3">
+		<div class="col-6 themed-grid-col">
+			<label for="currentlocation" class="form-label">Current Location: </label>
+		</div>
+		<div class="col-6 themed-grid-col">
+			<input type="text" readonly class="form-control-plaintext" id="currentlocation" value=""></input>
+		</div>
+	</div>
 	</form>
 	
   </div>
