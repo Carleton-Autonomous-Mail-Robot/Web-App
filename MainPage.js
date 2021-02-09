@@ -26,31 +26,28 @@ $(document).ready(function(){
 				"opperation": "newClient",
 				"payload": {
 					"sender": "",
-					"receiver": "",
 					"pickup": source,
 					"destination": dest,
 					"currentLocation": ""}});
-					
-			// Todo encrypt
 			
 			let request = new Request('http://localhost:5000', {
 				method: 'POST',
-				mode: 'no-cors',
-				headers: {'Content-Type': 'application/json'},
+				headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true},
 				body: jsonnew});
 				
 			// Send message, await response. Store IDs
 			let robotID = 0;
 			let clientID = 0;
 			let success = true;
-			let response = await fetch(request)		// Todo decrypt
+			let jsonrec = await fetch(request)
+				.then(response => response.json())
 				.catch((error) => {console.error('Error: ', error);success = false;});
 			
+			console.log(jsonrec);
+			
 			if (success) {
-				let jsonrec = response.json();
-				// Todo decrypt
 				if (jsonrec.status == "done") {
-					robotID = jsonrec.payload.receiver;
+					robotID = jsonrec.clientID;
 					clientID = jsonrec.payload.sender;
 					if (robotID == "") {
 						document.querySelector('#display').value = "No active robots";
@@ -62,6 +59,8 @@ $(document).ready(function(){
 				return "";
 			}
 			
+			
+			
         // IF YOU FOUND SERVER AND GOT VALID RESPONSE, MAKE OFFICIAL REQUEST
 			// Insert received data into json, make string for transit.
 			var jsonLmsg = JSON.stringify({ 
@@ -70,12 +69,9 @@ $(document).ready(function(){
 				"opperation": "leaveMessage",
 				"payload": {
 					"sender": clientID,
-					"receiver": robotID,
 					"pickup": source,
 					"destination": dest,
 					"currentLocation": ""}});
-				
-			// Todo encrypt
 				
 			request = new Request('http://localhost:5000', {
 				method: 'POST',
@@ -83,12 +79,11 @@ $(document).ready(function(){
 				headers: {'Content-Type': 'application/json'},
 				body: jsonLmsg});
 				
-			response = await fetch(request)		// Todo decrypt
+			jsonrec = await fetch(request)
+				.then(response => response.json())
 				.catch((error) => {console.error('Error: ', error);success = false;});
 				
-			if (success) {
-				jsonrec = response.json()	// Todo decrypt
-			} else {
+			if (success == false) {
 				document.querySelector('#display').value = "Server not found";
 				return "";
 			}
@@ -105,14 +100,12 @@ $(document).ready(function(){
 				"opperation": "getMessage",
 				"payload": {
 					"sender": clientID,
-					"receiver": robotID,
 					"pickup": source,
 					"destination": dest}});
-					
-			// Todo encrypt
 			
 			request = new Request('http://localhost:5000', {
 				method: 'POST',
+				mode: 'no-cors',
 				headers: {'Content-Type': 'application/json'},
 				body: jsonloop});
 				
@@ -124,8 +117,6 @@ $(document).ready(function(){
 				await sleep(1000);		// Get updates once per second to not overload system
 				fetch(request)
 					.then(function(response) {
-						// Todo decrypt
-						
 						// Unpack payload from inside JSON
 						jsonrec = response.json();
 						
@@ -161,7 +152,6 @@ $(document).ready(function(){
 				"opperation": "delete",
 				"payload": {
 					"sender": "",
-					"receiver": "",
 					"pickup": "",
 					"destination": ""}});
 			request = new Request('http://localhost:5000', {
@@ -170,7 +160,7 @@ $(document).ready(function(){
 				headers: {'Content-Type': 'application/json'},
 				body: jsondel});	
 			
-			response = await fetch(request)
+			jsonrec = await fetch(request)
 				.catch((error) => {console.error('Error: ', error);});
     });
 });
