@@ -10,7 +10,7 @@ $(document).ready(function(){
 			let source = document.querySelector('#source').value;
 			let dest = document.querySelector('#destination').value;
 			document.querySelector('#display').value = "";
-			document.querySelector('#robotid').value = "";
+			document.querySelector('#clientid').value = "";
 			document.querySelector('#currentlocation').value = "";
 			
 		// ENSURE THAT DEST != SRC
@@ -36,7 +36,6 @@ $(document).ready(function(){
 				body: jsonnew});
 				
 			// Send message, await response. Store IDs
-			let robotID = 0;
 			let clientID = 0;
 			let success = true;
 			let jsonrec = await fetch(request)
@@ -47,12 +46,7 @@ $(document).ready(function(){
 			
 			if (success) {
 				if (jsonrec.status == "done") {
-					robotID = jsonrec.clientID;
-					clientID = jsonrec.payload.sender;
-					if (robotID == "") {
-						document.querySelector('#display').value = "No active robots";
-						return "";
-					}
+					clientID = jsonrec.clientID;
 				}
 			} else {
 				document.querySelector('#display').value = "Connection failed, server not found";
@@ -65,7 +59,7 @@ $(document).ready(function(){
 			// Insert received data into json, make string for transit.
 			var jsonLmsg = JSON.stringify({ 
 				"status": "good",
-				"clientID": robotID,
+				"clientID": "",
 				"opperation": "leaveMessage",
 				"payload": {
 					"sender": clientID,
@@ -75,8 +69,7 @@ $(document).ready(function(){
 				
 			request = new Request('http://localhost:5000', {
 				method: 'POST',
-				mode: 'no-cors',
-				headers: {'Content-Type': 'application/json'},
+				headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true},
 				body: jsonLmsg});
 				
 			jsonrec = await fetch(request)
@@ -87,6 +80,7 @@ $(document).ready(function(){
 				document.querySelector('#display').value = "Server not found";
 				return "";
 			}
+			
         
         // DISABLE INPUTS UNTIL TASK FINISHED
 			document.querySelector('#source').disabled = true;
@@ -110,7 +104,7 @@ $(document).ready(function(){
 				body: jsonloop});
 				
 			// Update display with the robotID
-			document.querySelector('#robotid').value = robotID;
+			document.querySelector('#clientid').value = clientID;
 			
 			// Loop until robot has reached destination
 			var fetchNow = await new Promise(resolve => async function() {
@@ -143,7 +137,7 @@ $(document).ready(function(){
 			document.querySelector('#requestButton').disabled = false;
 			
 			document.querySelector('#currentlocation').value = "";
-			document.querySelector('#robotid').value = "";
+			document.querySelector('#clientid').value = "";
 			document.querySelector('#display').value = "";
 			
 			var jsondel = JSON.stringify({ 
