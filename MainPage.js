@@ -24,11 +24,7 @@ $(document).ready(function(){
 				"status": "good",
 				"clientID": "",
 				"opperation": "newClient",
-				"payload": {
-					"sender": "",
-					"pickup": source,
-					"destination": dest,
-					"currentLocation": ""}});
+				"payload": "user"});
 			
 			let request = new Request('http://localhost:5000', {
 				method: 'POST',
@@ -59,13 +55,13 @@ $(document).ready(function(){
 			// Insert received data into json, make string for transit.
 			var jsonLmsg = JSON.stringify({ 
 				"status": "good",
-				"clientID": "",
+				"clientID": clientID,
 				"opperation": "leaveMessage",
 				"payload": {
-					"sender": clientID,
 					"pickup": source,
 					"destination": dest,
-					"currentLocation": ""}});
+					"currentLocation": ""
+					}});
 				
 			request = new Request('http://localhost:5000', {
 				method: 'POST',
