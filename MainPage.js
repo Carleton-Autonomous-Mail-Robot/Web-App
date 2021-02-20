@@ -4,6 +4,11 @@ $(document).ready(function(){
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 	
+	// initally hidden
+	$("#basicPayload").hide();
+	$("#pills-test").hide();
+	
+	// send standard delivery request
     $("#requestButton").click(async function () {
         
         // FETCH FORM INFO AND RESET FIELDS
@@ -157,4 +162,32 @@ $(document).ready(function(){
 			jsonrec = await fetch(request)
 				.catch((error) => {console.error('Error: ', error);});
     });
+    
+    // send test message
+    $("#testButton").click(async function () {
+		
+	});
+	
+	// change type of message you're trying to send
+	$("#paytype").click(function () {
+		if($(this).is(':checked')){
+			$("#basicPayload").show();
+			$("#otherPayload").hide();
+		} else {
+			$("#basicPayload").hide();
+			$("#otherPayload").show();
+		}
+	});
+	
+	// show request tab when clicked
+	$("#pills-request-tab").click(function () {
+		$("#pills-request").show();
+		$("#pills-test").hide();
+	});
+	
+	// show test tab when clicked
+	$("#pills-test-tab").click(function () {
+		$("#pills-test").show();
+		$("#pills-request").hide();
+	});
 });
