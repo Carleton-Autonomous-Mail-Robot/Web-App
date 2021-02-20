@@ -80,6 +80,10 @@ $(document).ready(function(){
 				document.querySelector('#display').value = "Server not found";
 				return "";
 			}
+			if (jsonrec.status == 'bad') {
+				document.querySelector('#display').value = "No robots to service";
+				return ""
+			}
 			
         
         // DISABLE INPUTS UNTIL TASK FINISHED
