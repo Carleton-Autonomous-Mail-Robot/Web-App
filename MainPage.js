@@ -6,7 +6,6 @@ $(document).ready(function(){
 	
 	// initally hidden
 	$("#basicPayload").hide();
-	$("#pills-test").hide();
 	
 	// send standard delivery request
     $("#requestButton").click(async function () {
@@ -165,7 +164,41 @@ $(document).ready(function(){
     
     // send test message
     $("#testButton").click(async function () {
+		// Get information to be sent
+		let status = document.querySelector('#status').value;
+		let sentID = document.querySelector('#sentID').value;
+		let opperation = document.querySelector('#opperation').value;
 		
+		// Get payload, either basic or other
+		if ($("#paytype").is(':checked')) {
+			let payload = document.querySelector('#payload').value
+		} else {
+			let pickup = document.querySelector('#pickup').value;
+			let dropoff = document.querySelector('#dropoff').value;
+			let location = document.querySelector('#location').value;
+			let payload = {"pickup":pickup,"destination":dropoff,"currentLocation":location}
+		}
+		
+		// Make message and request
+		var json = JSON.stringify({ 
+				"status": status,
+				"clientID": sentID,
+				"opperation": opperation,
+				"payload": payload});
+			
+		let request = new Request('http://localhost:5000', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true},
+			body: json});
+		
+		// Send message
+		let jsonrec = await fetch(request)
+			.then(response => response.json())
+			.catch((error) => {console.error('Error: ', error);success = false;});
+			
+		// Log msg and response
+		$("#output").value += "\n" + json;
+		$("#output").value += "\n" + jsonrec + "\n";
 	});
 	
 	// change type of message you're trying to send
