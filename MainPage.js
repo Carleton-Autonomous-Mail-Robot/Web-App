@@ -16,6 +16,7 @@ $(document).ready(function(){
 			document.querySelector('#display').value = "";
 			document.querySelector('#clientid').value = "";
 			document.querySelector('#currentlocation').value = "";
+			document.querySelector('#display').style.backgroundColor = "white";
 			
 		// ENSURE THAT DEST != SRC
 		if (dest == source) {
@@ -77,7 +78,7 @@ $(document).ready(function(){
 				.catch((error) => {console.error('Error: ', error);success = false;});
 				
 			if (success == false) {
-				document.querySelector('#display').value = "Server not found";
+				document.querySelector('#display').value = "Server didn't respond";
 				return "";
 			}
 			if (jsonrec.status == 'bad') {
@@ -96,44 +97,65 @@ $(document).ready(function(){
 				"status": "good",
 				"clientID": clientID,
 				"opperation": "getMessage",
-				"payload": {
-					"sender": clientID,
-					"pickup": source,
-					"destination": dest}});
+				"payload": ""});
 			
 			request = new Request('http://localhost:5000', {
 				method: 'POST',
-				mode: 'no-cors',
-				headers: {'Content-Type': 'application/json'},
+				headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true},
 				body: jsonloop});
 				
 			// Update display with the robotID
 			document.querySelector('#clientid').value = clientID;
 			
 			// Loop until robot has reached destination
+			timeout = 0;
 			var fetchNow = await new Promise(resolve => async function() {
-				await sleep(1000);		// Get updates once per second to not overload system
-				fetch(request)
-					.then(function(response) {
-						// Unpack payload from inside JSON
-						jsonrec = response.json();
-						
-						// Check if the getmessage succeeded
-						if (jsonrec.status == "done") {
-							// Set innerHTML of currentlocation output box
-							document.querySelector('#currentlocation').value = jsonrec.payload.currentLocation;
+				if (timeout < 60){
+					if (timeout == 30) {
+						document.querySelector('#display').style.backgroundColor = "yellow";
+					} else if (timeout == 45) {
+						document.querySelector('#display').style.backgroundColor = "orange";
+					} else if (timeout == 55) {
+						document.querySelector('#display').style.backgroundColor = "red";
+					}
+					await sleep(1000);		// Get updates once per second to not overload system
+					fetch(request)
+						.then(function(response) {
+							// Unpack payload from inside JSON
+							jsonrec = response.json();
 							
-							// Loop if destination != current location
-							if(jsonrec.payload.currentLocation == jsonrec.payload.destination) {
-								;
-							}
-							else {
+							// Check if the getmessage succeeded
+							if (jsonrec.status == "done") {
+								// reset timeout
+								timeout = 0;
+								document.querySelector('#display').style.backgroundColor = "white";
+								
+								// Set innerHTML of currentlocation output box
+								document.querySelector('#currentlocation').value = jsonrec.payload.currentLocation;
+								
+								// Loop if destination != current location
+								if(jsonrec.payload.currentLocation == jsonrec.payload.destination) {;}
+								else {
+									fetchNow();
+								}
+							} else {
 								fetchNow();
+								timeout = timeout + 1;
 							}
-						}
-					})
-					.catch((error) => {console.error('Error: ', error);});
+						})
+						.catch((error) => {
+							console.error('Error: ', error);
+							timeout = timeout + 1;
+							fetchNow();
+						});
+				}
 			});
+			
+			if (timeout == 60) {
+				document.querySelector('#display').value = "TIMEOUT: Too long since robot sent location, robot is lost";
+			} else {
+				document.querySelector('#display').value = "";
+			}
         
         // RESET ALL FIELDS, DELETE ASSOCIATED CLIENT
 			document.querySelector('#source').disabled = false;
@@ -142,21 +164,17 @@ $(document).ready(function(){
 			
 			document.querySelector('#currentlocation').value = "";
 			document.querySelector('#clientid').value = "";
-			document.querySelector('#display').value = "";
 			
 			var jsondel = JSON.stringify({ 
 				"status": "good",
 				"clientID": clientID,
 				"opperation": "delete",
-				"payload": {
-					"sender": "",
-					"pickup": "",
-					"destination": ""}});
+				"payload": ""});
+				
 			request = new Request('http://localhost:5000', {
-				method: 'POST',
-				mode: 'no-cors',
-				headers: {'Content-Type': 'application/json'},
-				body: jsondel});	
+			method: 'POST',
+			headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true},
+			body: jsondel});
 			
 			jsonrec = await fetch(request)
 				.catch((error) => {console.error('Error: ', error);});
