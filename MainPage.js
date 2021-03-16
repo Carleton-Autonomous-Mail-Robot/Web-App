@@ -25,7 +25,7 @@ $(document).ready(function(){
 		};
         
         // CREATE NEW CLIENT ON WEBSERVER, RESPONSE HAS ID INFO			
-			let request = new Request('http://localhost:8000/newClient?robot=yes', {
+			let request = new Request('https://web-services-mail.herokuapp.com/newClient?robot=yes', {
 				method: 'GET',
 				headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true}});
 				
@@ -55,7 +55,7 @@ $(document).ready(function(){
 			
         // IF YOU FOUND SERVER AND GOT VALID RESPONSE, MAKE OFFICIAL REQUEST
 			// Insert received data into json, make string for transit.
-			var url = 'http://localhost:8000/rawLeaveMessage?clientID=' + clientID.toString();
+			var url = 'https://web-services-mail.herokuapp.com/rawLeaveMessage?clientID=' + clientID.toString();
 			let pay = source + dest
 			
 			request = new Request(url, {
@@ -184,7 +184,7 @@ $(document).ready(function(){
 		let dropoff = document.querySelector('#dropoff').value;
 		
 		// set value depending on opperation
-		url = 'http://localhost:8000/';
+		url = 'https://web-services-mail.herokuapp.com/';
 		meth = '';
 		pay = '';
 		head = {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true};
