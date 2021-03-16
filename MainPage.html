@@ -88,8 +88,8 @@
 				    <option value="B">Beacon B</option>
 				    <option value="C">Beacon C</option>
 				    <option value="D">Beacon D</option>
-				    <option value="1">Station 1</option>
-				    <option value="2">Station 2</option>
+				    <option value="E">Beacon E</option>
+				    <option value="F">Beacon F</option>
 			    </select>
 		    </div>
 	      </div>
@@ -102,8 +102,8 @@
 				    <option value="B">Beacon B</option>
 				    <option value="C">Beacon C</option>
 				    <option value="D">Beacon D</option>
-				    <option value="1">Station 1</option>
-				    <option value="2">Station 2</option>
+				    <option value="E">Beacon E</option>
+				    <option value="F">Beacon F</option>
 			    </select>
 		    </div>
 	      </div>
@@ -143,25 +143,15 @@
 	<p class="lead">We are capable of sending dummy messages to simulate the behaviour of a robot. Can also test server messaging.</p>
 	
 	<form>
-	
-	<div class="col mb-3">
-	    <label for="status">status: </label>
-	    <input type="text" id="status" name="status">
-	</div><br>
-	
-	<div class="col mb-3">
-	    <label for="sentID">clientID: </label>
-	    <input type="text" id="sentID" name="client">
-	</div><br>
-	
+	    
 	<div class="col mb-3">
 	    <label for="opperation">opperation: </label>
 	    <input type="text" id="opperation" name="client">
 	</div><br>
 	
 	<div class="col mb-3">
-	    <input type="checkbox" id="paytype" name="client">
-	    <label for="paytype">Basic Payload</label>
+	    <label for="sentID">clientID: </label>
+	    <input type="text" id="sentID" name="client">
 	</div><br>
 	
 	
@@ -183,16 +173,19 @@
 		<label for="dropoff" class="form-label">Dropoff: </label>	    
 		<input type="text" id="dropoff" name="dropoff">
 	    </div><br>
-	    
-	    <div class="col mb-3">
-		<label for="location" class="form-label"> Current Location: </label>	    
-		<input type="text" id="location" name="location">
-	    </div><br>
 	</div>
 	
 	<button type="button" class="btn btn-primary" id="testButton">Send</button><br>
+	<br>
 	
-	<input type="text" readonly class="form-control-plaintext" id="output" value=""></input>
+	<div class="row mb-3">
+	    <div class="col-6 themed-grid-col">
+		<label for="output" class="form-label">Received Message: </label>
+	    </div>
+	    <div class="col-6 themed-grid-col">
+		<input type="text" readonly class="form-control-plaintext" id="output" value=""></input>
+	    </div>
+	</div>
 	
 	</form>
 	  
