@@ -25,7 +25,7 @@ $(document).ready(function(){
 		};
         
         // CREATE NEW CLIENT ON WEBSERVER, RESPONSE HAS ID INFO			
-			let request = new Request('https://web-services-mail.herokuapp.com/newClient?robot=yes', {
+			let request = new Request('https://web-services-mail.herokuapp.com/newClient', {
 				method: 'GET',
 				headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': true}});
 				
