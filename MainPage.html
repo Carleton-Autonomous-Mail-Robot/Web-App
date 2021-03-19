@@ -1,0 +1,199 @@
+<!doctype html>
+
+<html lang="en">
+
+<!-- This document was build on top of https://getbootstrap.com/docs/5.0/examples/starter-template/ -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Devon Daley, Carleton University Undergraduate">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>Carleton Autonomous Mail Robot</title>
+   
+    
+    
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    
+    
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="reset.css" rel="stylesheet">
+	
+</head>
+<body>
+    
+    <!-- jQuery -->
+    <script src="js/jquery-3.5.1.min.js"></script>
+    
+    <!-- Bootstrap core js -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom js script -->
+    <script type="text/javascript" src="MainPage.js"></script>
+    
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Requests</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="pills-request-tab" data-bs-toggle="pill" data-bs-target="#pills-request" type="button" role="tab" aria-controls="pills-request" aria-selected="true">Request Interface</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-test-tab" data-bs-toggle="pill" data-bs-target="#pills-test" type="button" role="tab" aria-controls="pills-test" aria-selected="false">Test Messaging</button>
+        </li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container">
+
+    <div class="tab-content" id="pills-tabContent">
+
+      <div class="tab-pane fade show active text-center py-5 px-3" id="pills-request" role="tabpanel" aria-labelledby="pills-request-tab">
+	<h1>Make a request of the Carleton Autonomous Mail Robot</h1>
+	    <br>
+	<p class="lead">Our service delivers packages between locations. Choose the Source and Destination beacons below.</p>
+	    <br>
+	    
+	<form>
+	<div class="row mb-3">
+	  <div class="col-6 themed-grid-col"> 
+		    <div class="mb-3">
+			    <label for="source" class="form-label">Source: </label>
+			    <select id="source" class="form-select">
+				    <option value="A">Beacon A</option>
+				    <option value="B">Beacon B</option>
+				    <option value="C">Beacon C</option>
+				    <option value="D">Beacon D</option>
+				    <option value="E">Beacon E</option>
+				    <option value="F">Beacon F</option>
+			    </select>
+		    </div>
+	      </div>
+	      
+	  <div class="col-6 themed-grid-col"> 
+		    <div class="mb-3">
+			    <label for="destination" class="form-label">Destination: </label>
+			    <select id="destination" class="form-select">
+				    <option value="A">Beacon A</option>
+				    <option value="B">Beacon B</option>
+				    <option value="C">Beacon C</option>
+				    <option value="D">Beacon D</option>
+				    <option value="E">Beacon E</option>
+				    <option value="F">Beacon F</option>
+			    </select>
+		    </div>
+	      </div>
+	  </div>
+	    <button type="button" id="requestButton" class="btn btn-primary">Submit</button>
+	    <br><br><br><br>
+	    
+	    <div class="row mb-3">
+		    <div class="col-6 themed-grid-col">
+			    <label for="clientid" class="form-label">Your ClientID: </label>
+		    </div>
+		    <div class="col-6 themed-grid-col">
+			    <input type="text" readonly class="form-control-plaintext" id="clientid" value=""></input>
+		    </div>
+	      </div>
+	    
+	    <div class="row mb-3">
+		    <div class="col-6 themed-grid-col">
+			    <label for="currentlocation" class="form-label">Current Location: </label>
+		    </div>
+		    <div class="col-6 themed-grid-col">
+			    <input type="text" readonly class="form-control-plaintext" id="currentlocation" value=""></input>
+		    </div>
+	      </div>
+	    
+	    <div class="row mb-3">
+		<input type="text" readonly class="form-control-plaintext" id="display" value=""></input>
+	      </div>
+	    
+	  </div>    
+	  </form>
+        </div>
+      
+      
+      <div class="tab-pane fade text-center py-5 px-3" id="pills-test" role="tabpanel" aria-labelledby="pills-test-tab" >
+	
+	<p class="lead">We are capable of sending dummy messages to simulate the behaviour of a robot. Can also test server messaging.</p>
+	
+	<form>
+	    
+	<div class="col mb-3">
+	    <label for="opperation">opperation: </label>
+	    <input type="text" id="opperation" name="client">
+	</div><br>
+	
+	<div class="col mb-3">
+	    <label for="sentID">clientID: </label>
+	    <input type="text" id="sentID" name="client">
+	</div><br>
+	
+	
+	<div id="basicPayload">
+	    <div class="col mb-3">
+		<label for="payload" class="form-label">Payload: </label>	    
+		<input type="text" id="payload" name="payload">
+	    </div><br>
+	</div>
+	
+	
+	<div id="otherPayload">
+	    <div class="col mb-3">
+		<label for="pickup" class="form-label">Pickup: </label>	    
+		<input type="text" id="pickup" name="pickup">
+	    </div><br>
+	    
+	    <div class="col mb-3">
+		<label for="dropoff" class="form-label">Dropoff: </label>	    
+		<input type="text" id="dropoff" name="dropoff">
+	    </div><br>
+	</div>
+	
+	<button type="button" class="btn btn-primary" id="testButton">Send</button><br>
+	<br>
+	
+	<div class="row mb-3">
+	    <div class="col-6 themed-grid-col">
+		<label for="output" class="form-label">Received Message: </label>
+	    </div>
+	    <div class="col-6 themed-grid-col">
+		<input type="text" readonly class="form-control-plaintext" id="output" value=""></input>
+	    </div>
+	</div>
+	
+	</form>
+	  
+      </div>
+      
+      
+    </div>
+  
+</main>      
+</body>
+</html>
